@@ -10,10 +10,12 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import pedidosApp.backend.entity.User;
 
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Base64;
 
 @Service
 public class TokenService {
@@ -21,12 +23,12 @@ public class TokenService {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-    @Value("${jwt.secret")
+    @Value("${jwt.secret}")
     private String secret;
 
     public String genereteToken (User user){
         try{
-            Algorithm algorithm = Algorithm.HMAC256(secret);
+            Algorithm algorithm = Algorithm.HMAC256(secret.getBytes(StandardCharsets.UTF_8));
             String token = JWT.create()
                     .withIssuer("auth-api")
                     .withSubject(user.getUsername())
@@ -42,7 +44,7 @@ public class TokenService {
 
     public String validateToken (String token) {
         try{
-            Algorithm algorithm = Algorithm.HMAC256(secret);
+            Algorithm algorithm = Algorithm.HMAC256(secret.getBytes(StandardCharsets.UTF_8));
             return JWT.require(algorithm)
                     .withIssuer("auth-api")
                     .build()
