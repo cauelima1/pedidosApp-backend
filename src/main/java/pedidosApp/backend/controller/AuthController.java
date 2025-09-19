@@ -1,13 +1,14 @@
 package pedidosApp.backend.controller;
 
-
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pedidosApp.backend.entity.DTO.UserDtoRequest;
-import pedidosApp.backend.entity.DTO.UserDtoResponse;
-import pedidosApp.backend.service.LoginService;
-import pedidosApp.backend.service.RegisterService;
+import pedidosApp.backend.service.authorizationService.TokenBlackListService;
+import pedidosApp.backend.service.authorizationService.TokenService;
+import pedidosApp.backend.service.userService.LogoutService;
+import pedidosApp.backend.service.userService.RegisterService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/auth")
@@ -18,22 +19,29 @@ public class AuthController {
     private RegisterService registerService;
 
     @Autowired
-    private LoginService loginService;
+    private pedidosApp.backend.service.userService.LoginService loginService;
 
 
-    @GetMapping("/endpoint")
-    public String iniciar (){
-        return "API rodando.";
-    }
+    @Autowired
+    private LogoutService logoutService;
+
+    @Autowired
+    private TokenBlackListService tokenBlackListService;
+
 
     @PostMapping("/register")
-    public ResponseEntity register (@RequestBody UserDtoRequest user){
+    public ResponseEntity<?> register (@RequestBody UserDtoRequest user){
         return registerService.register(user);
     }
 
     @PostMapping("/login")
-    public ResponseEntity token (@RequestBody UserDtoRequest user){
+    public ResponseEntity<String> login (@RequestBody UserDtoRequest user){
         var token = loginService.login(user);
-        return ResponseEntity.ok(new UserDtoResponse(token));
+        return ResponseEntity.ok(token);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout (@RequestHeader("Authorization") String authHeader, HttpServletRequest request){
+        return logoutService.logout(request);
     }
 }

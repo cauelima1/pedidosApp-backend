@@ -1,32 +1,48 @@
-package pedidosApp.backend.service;
+package pedidosApp.backend.service.authorizationService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import pedidosApp.backend.entity.BlackListedToken;
+import pedidosApp.backend.repository.BlackListedTokenRepository;
+import pedidosApp.backend.securityConfigurations.JwtUtils;
 
-
+import java.net.http.HttpRequest;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
+
 
 @Service
 public class TokenBlackListService {
+
     @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private JwtUtils jwtUtils;
 
-    public void blackListToken(String token, long expirationMillis){
-        redisTemplate.opsForValue().set(token, "blacklisted", expirationMillis, TimeUnit.MILLISECONDS);
+    @Autowired
+    private TokenService tokenService;
+
+    @Autowired
+    private BlackListedTokenRepository repository;
+
+    public void blackListToken (HttpServletRequest request)    {
+        try{
+
+            String token = tokenService.recoverToken(request);
+            long expirationMillis = jwtUtils.getExpirationFromToken(token).getTime() - System.currentTimeMillis();
+            BlackListedToken blackListedToken = new BlackListedToken();
+            blackListedToken.setToken(token);
+            blackListedToken.setExpirationMillis(expirationMillis);
+            blackListedToken.setBlacklistedAt(LocalDateTime.now());
+            repository.save(blackListedToken);
+
+        } catch (Exception e){
+            throw new RuntimeException();
+        }
     }
 
-    public boolean isBlackList(String token){
-        return redisTemplate.hasKey(token);
-    }
-
-    public void listarBlacklist() {
-        Set<String> keys = redisTemplate.keys("*");
-        keys.forEach(key -> {
-            String value = redisTemplate.opsForValue().get(key);
-            System.out.println("Token: " + key + " | Status: " + value);
-        });
+    public boolean isTokenBlackListed (String token){
+        return repository.existsByToken(token);
     }
 
 }

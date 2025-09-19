@@ -1,7 +1,5 @@
-package pedidosApp.backend.service;
-
+package pedidosApp.backend.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,9 +8,7 @@ import org.springframework.stereotype.Service;
 import pedidosApp.backend.entity.DTO.UserDtoRequest;
 import pedidosApp.backend.entity.User;
 import pedidosApp.backend.repository.UserRepository;
-import pedidosApp.backend.securityConfigurations.RedisConfig;
-
-import java.time.Duration;
+import pedidosApp.backend.service.authorizationService.TokenService;
 
 @Service
 public class LoginService {
@@ -24,12 +20,7 @@ public class LoginService {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private RedisConfig redisConfig;
-
-    @Autowired
     private TokenService tokenService;
-
-
 
     public String login (UserDtoRequest userDtoRequest){
         UserDetails user = userRepository.findByUsername(userDtoRequest.username());
@@ -38,9 +29,8 @@ public class LoginService {
                 var login = new UsernamePasswordAuthenticationToken(userDtoRequest.username(), userDtoRequest.password());
                 var auth = authenticationManager.authenticate(login);
                 var token = tokenService.genereteToken((User) auth.getPrincipal());
-
-                tokenService.salvarToken(userDtoRequest.username(), token);
-                return token;
+                System.out.println("Token válido: ");
+                      return token;
             } catch (Exception e) {
                 throw new RuntimeException("Invalid password");
             }
@@ -48,12 +38,5 @@ public class LoginService {
             throw new RuntimeException("Username not found");
         }
     }
-
-
-
-
-
-
-
 
 }

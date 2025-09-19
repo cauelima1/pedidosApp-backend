@@ -1,4 +1,4 @@
-package pedidosApp.backend.service;
+package pedidosApp.backend.service.userService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ public class RegisterService {
     @Autowired
     private UserRepository userRepository;
 
-    public ResponseEntity register (UserDtoRequest user){
+    public ResponseEntity<?> register (UserDtoRequest user){
         if(userRepository.findByUsername(user.username()) != null){
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }

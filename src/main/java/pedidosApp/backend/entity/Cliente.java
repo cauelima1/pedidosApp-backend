@@ -2,44 +2,31 @@ package pedidosApp.backend.entity;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
-
 @Entity
 public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String nome;
     @Column(unique = true)
-    private Long cnpj;
+    private long cnpj;
+    @Column(unique = true)
+    private String nome;
+    private String obs;
     private String cep;
     private String endereco;
     private String municipio;
     private String uf;
-    private BigDecimal df;
-    private boolean isContribuinteICMS;
+    private double df;
+    private boolean isICMS;
 
-    public Cliente(Long id, String nome, Long cnpj, String cep, String endereco, String municipio, String uf, BigDecimal df, boolean isContribuinteICMS) {
-        this.id = id;
-        this.nome = nome;
+
+    public Cliente (){}
+
+    public long getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(long cnpj) {
         this.cnpj = cnpj;
-        this.cep = cep;
-        this.endereco = endereco;
-        this.municipio = municipio;
-        this.uf = uf;
-        this.df = df;
-        this.isContribuinteICMS = isContribuinteICMS;
-    }
-
-    public Cliente () {   }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -50,12 +37,12 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public Long getCnpj() {
-        return cnpj;
+    public String getObs() {
+        return obs;
     }
 
-    public void setCnpj(Long cnpj) {
-        this.cnpj = cnpj;
+    public void setObs(String obs) {
+        this.obs = obs;
     }
 
     public String getCep() {
@@ -90,20 +77,20 @@ public class Cliente {
         this.uf = uf;
     }
 
-    public BigDecimal getDf() {
+    public double getDf() {
         return df;
     }
 
-    public void setDf(BigDecimal df) {
+    public void setDf(double df) {
         this.df = df;
     }
 
-    public boolean isContribuinteICMS() {
-        return isContribuinteICMS;
+    public boolean isICMS() {
+        return isICMS;
     }
 
-    public void setContribuinteICMS(boolean contribuinteICMS) {
-        isContribuinteICMS = contribuinteICMS;
+    public void setICMS(boolean ICMS) {
+        isICMS = ICMS;
     }
 }
 

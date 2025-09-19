@@ -3,7 +3,7 @@ package pedidosApp.backend;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pedidosApp.backend.entity.User;
-import pedidosApp.backend.service.TokenService;
+import pedidosApp.backend.service.authorizationService.TokenService;
 
 import java.lang.reflect.Field;
 

@@ -7,12 +7,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.token.Token;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import pedidosApp.backend.repository.UserRepository;
-import pedidosApp.backend.service.TokenService;
+import pedidosApp.backend.service.authorizationService.TokenBlackListService;
+import pedidosApp.backend.service.authorizationService.TokenService;
 
 import java.io.IOException;
 
@@ -23,28 +23,34 @@ public class SecurityFilter extends OncePerRequestFilter {
     private TokenService tokenService;
 
     @Autowired
+    private TokenBlackListService tokenBlackListService;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        var token = recoverToken(request);
+        var token = tokenService.recoverToken(request);
+
         if (token != null){
-            var username = tokenService.validateToken(token);
-            UserDetails user = userRepository.findByUsername(username);
+            if(tokenBlackListService.isTokenBlackListed(token)){
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            } else {
+                try{
+                    var username = tokenService.validateToken(token);
+                    UserDetails user = userRepository.findByUsername(username);
 
-            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-
-
-
+                    var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }   catch (Exception e) {
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    return;
+                }
+            }
         }
         filterChain.doFilter(request, response);
     }
 
-    private String recoverToken(HttpServletRequest request){
-        var authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) return null;
-        return authHeader.replace("Bearer ", "").trim();
-    }
+
 
 }
