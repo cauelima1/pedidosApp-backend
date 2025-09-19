@@ -18,7 +18,7 @@ public class ClienteController {
     private ClientService clientService;
 
     @PostMapping
-    public ResponseEntity<?> saveCliente(@RequestBody ClienteDtoRequest clienteDto){
+    public ResponseEntity<?> salvarCliente(@RequestBody ClienteDtoRequest clienteDto){
         clientService.salvarCliente(clienteDto);
         return ResponseEntity.ok().build();
     }
@@ -27,6 +27,18 @@ public class ClienteController {
     public ResponseEntity<List<Cliente>> carregarClientes (){
         List<Cliente> clientes = clientService.listarClientes();
         return ResponseEntity.ok().body(clientes);
+    }
+
+    @PutMapping
+    public ResponseEntity<?> alterarCliente (@RequestBody ClienteDtoRequest clienteDtoRequest){
+        clientService.alterarCliente(clienteDtoRequest);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{cnpj}")
+    public ResponseEntity<?> deletarCliente (@PathVariable long cnpj){
+        clientService.deletarCliente(cnpj);
+        return ResponseEntity.ok().build();
     }
 
 }
