@@ -1,13 +1,18 @@
 package pedidosApp.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Table(name = "cliente")
 @Entity
 public class Cliente {
 
     @Id
     @Column(unique = true)
-    private long cnpj;
+    private Long cnpj;
     @Column(unique = true)
     private String nome;
     private String obs;
@@ -15,17 +20,29 @@ public class Cliente {
     private String endereco;
     private String municipio;
     private String uf;
-    private double df;
+    private Double df;
     private boolean isICMS;
+
+    @OneToMany( mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Pedido> pedido = new ArrayList<>();
+
 
 
     public Cliente (){}
 
-    public long getCnpj() {
+    public List<Pedido> getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(List<Pedido> pedido) {
+        this.pedido = pedido;
+    }
+
+    public Long getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(long cnpj) {
+    public void setCnpj(Long cnpj) {
         this.cnpj = cnpj;
     }
 

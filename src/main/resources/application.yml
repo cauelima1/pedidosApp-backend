@@ -4,7 +4,7 @@ spring:
     port: 8080
 
   datasource:
-    url: jdbc:mysql://localhost:3306/db_pedidosapp
+    url: jdbc:mysql://localhost:3306/db_pedidos
     username: root
     password: Zefelipe22!
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -16,7 +16,6 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-
 
 
 jwt:

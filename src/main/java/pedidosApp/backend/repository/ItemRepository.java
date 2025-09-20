@@ -2,10 +2,8 @@ package pedidosApp.backend.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pedidosApp.backend.entity.Cliente;
+import pedidosApp.backend.entity.Item;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Long> {
-
-    Cliente findByCnpj (long cnpj);
+public interface ItemRepository extends JpaRepository<Item, Long> {
 }
