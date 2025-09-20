@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pedidosApp.backend.entity.Cliente;
 import pedidosApp.backend.entity.DTO.ClienteDtoRequest;
-import pedidosApp.backend.service.clientService.ClientService;
+import pedidosApp.backend.service.ClientService;
 
 import java.util.List;
 

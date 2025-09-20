@@ -1,4 +1,4 @@
-package pedidosApp.backend.service.userService;
+package pedidosApp.backend.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 
@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import pedidosApp.backend.entity.DTO.UserDtoRequest;
 import pedidosApp.backend.entity.User;
 import pedidosApp.backend.repository.UserRepository;
-import pedidosApp.backend.service.authorizationService.TokenService;
 
 @Service
 public class LoginService {

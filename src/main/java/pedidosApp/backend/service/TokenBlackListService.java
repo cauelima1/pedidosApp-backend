@@ -1,4 +1,4 @@
-package pedidosApp.backend.service.authorizationService;
+package pedidosApp.backend.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +7,7 @@ import pedidosApp.backend.entity.BlackListedToken;
 import pedidosApp.backend.repository.BlackListedTokenRepository;
 import pedidosApp.backend.securityConfigurations.JwtUtils;
 
-import java.net.http.HttpRequest;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
 
 
 @Service

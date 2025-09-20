@@ -1,6 +1,5 @@
-package pedidosApp.backend.service.clientService;
+package pedidosApp.backend.service;
 
-import ch.qos.logback.core.net.server.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Service;
 import pedidosApp.backend.entity.Cliente;
 import pedidosApp.backend.entity.DTO.ClienteDtoRequest;
 import pedidosApp.backend.repository.ClienteRepository;
-import pedidosApp.backend.repository.UserRepository;
 
 import java.util.List;
 

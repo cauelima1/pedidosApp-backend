@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pedidosApp.backend.entity.DTO.UserDtoRequest;
-import pedidosApp.backend.service.authorizationService.TokenBlackListService;
-import pedidosApp.backend.service.authorizationService.TokenService;
-import pedidosApp.backend.service.userService.LogoutService;
-import pedidosApp.backend.service.userService.RegisterService;
+import pedidosApp.backend.service.LoginService;
+import pedidosApp.backend.service.TokenBlackListService;
+import pedidosApp.backend.service.LogoutService;
+import pedidosApp.backend.service.RegisterService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/auth")
@@ -19,7 +19,7 @@ public class AuthController {
     private RegisterService registerService;
 
     @Autowired
-    private pedidosApp.backend.service.userService.LoginService loginService;
+    private LoginService loginService;
 
 
     @Autowired

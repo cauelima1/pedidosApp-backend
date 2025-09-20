@@ -1,4 +1,4 @@
-package pedidosApp.backend.service.authorizationService;
+package pedidosApp.backend.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import pedidosApp.backend.entity.User;
 
 
-import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;

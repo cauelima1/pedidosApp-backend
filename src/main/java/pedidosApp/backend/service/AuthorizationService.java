@@ -1,4 +1,4 @@
-package pedidosApp.backend.service.authorizationService;
+package pedidosApp.backend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

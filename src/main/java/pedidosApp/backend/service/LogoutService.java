@@ -1,4 +1,4 @@
-package pedidosApp.backend.service.userService;
+package pedidosApp.backend.service;
 
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pedidosApp.backend.securityConfigurations.JwtUtils;
-import pedidosApp.backend.service.authorizationService.TokenBlackListService;
-import pedidosApp.backend.service.authorizationService.TokenService;
 
 
 @Service

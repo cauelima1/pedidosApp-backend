@@ -11,8 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import pedidosApp.backend.repository.UserRepository;
-import pedidosApp.backend.service.authorizationService.TokenBlackListService;
-import pedidosApp.backend.service.authorizationService.TokenService;
+import pedidosApp.backend.service.TokenBlackListService;
+import pedidosApp.backend.service.TokenService;
 
 import java.io.IOException;
 
