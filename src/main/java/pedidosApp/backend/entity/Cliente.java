@@ -23,7 +23,8 @@ public class Cliente {
     private Double df;
     private boolean isICMS;
 
-    @OneToMany( mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    @OneToMany( mappedBy = "cliente")
     private List<Pedido> pedido = new ArrayList<>();
 
 

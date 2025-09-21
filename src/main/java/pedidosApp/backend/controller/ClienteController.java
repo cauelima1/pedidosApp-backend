@@ -36,7 +36,7 @@ public class ClienteController {
     }
 
     @DeleteMapping("/{cnpj}")
-    public ResponseEntity<?> deletarCliente (@PathVariable long cnpj){
+    public ResponseEntity<?> deletarCliente (@PathVariable Long cnpj){
         clientService.deletarCliente(cnpj);
         return ResponseEntity.ok().build();
     }

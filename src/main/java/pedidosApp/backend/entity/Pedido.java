@@ -1,8 +1,10 @@
 package pedidosApp.backend.entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import pedidosApp.backend.entity.enums.StatusPedido;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -13,9 +15,11 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+    private String nomeCliente;
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<Item> items;
     private BigDecimal valorTotal;
@@ -28,18 +32,33 @@ public class Pedido {
     private String condicaoFrete;
     private String observacoes;
     private StatusPedido statusPedido;
-    private Date data;
+    private String data;
 
 
     public Pedido(){}
 
 
-    public Date getData() {
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+
+
+
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
+    }
+    public void setData(Date data) {
+        Date date = new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        this.data = formato.format(date);
     }
 
     public Long getId() {

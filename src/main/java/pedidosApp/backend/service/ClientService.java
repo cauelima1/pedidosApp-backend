@@ -49,7 +49,6 @@ public class ClientService {
             cliente.setICMS(novoCliente.isICMS());
             clienteRepository.save(cliente);
         }
-
     }
 
     public void deletarCliente(long cnpj){
