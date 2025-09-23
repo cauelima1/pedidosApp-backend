@@ -1,12 +1,9 @@
 package pedidosApp.backend.controller;
 
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pedidosApp.backend.entity.Cliente;
 import pedidosApp.backend.entity.DTO.PedidoDtoRequest;
-import pedidosApp.backend.entity.Item;
 import pedidosApp.backend.entity.Pedido;
 import pedidosApp.backend.service.ItemService;
 import pedidosApp.backend.service.PedidoService;

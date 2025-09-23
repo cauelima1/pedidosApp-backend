@@ -27,8 +27,6 @@ public class ClientService {
             cliente.setMunicipio(novoCliente.municipio());
             cliente.setUf(novoCliente.uf());
             cliente.setDf(novoCliente.df());
-            cliente.setICMS(novoCliente.isICMS());
-
             clienteRepository.save(cliente);
             return ResponseEntity.ok().build();
         } else {
@@ -46,7 +44,6 @@ public class ClientService {
             cliente.setMunicipio(novoCliente.municipio());
             cliente.setUf(novoCliente.uf());
             cliente.setDf(novoCliente.df());
-            cliente.setICMS(novoCliente.isICMS());
             clienteRepository.save(cliente);
         }
     }

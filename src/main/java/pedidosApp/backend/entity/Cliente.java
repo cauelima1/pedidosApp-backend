@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table(name = "cliente")
+@Table(name = "tb_cliente")
 @Entity
 public class Cliente {
 
@@ -15,28 +15,25 @@ public class Cliente {
     private Long cnpj;
     @Column(unique = true)
     private String nome;
-    private String obs;
     private String cep;
     private String endereco;
     private String municipio;
     private String uf;
+    private String obs;
     private Double df;
-    private boolean isICMS;
 
     @JsonManagedReference
     @OneToMany( mappedBy = "cliente")
     private List<Pedido> pedido = new ArrayList<>();
 
-
-
     public Cliente (){}
 
-    public List<Pedido> getPedido() {
-        return pedido;
+    public Double getDf(){
+        return df;
     }
 
-    public void setPedido(List<Pedido> pedido) {
-        this.pedido = pedido;
+    public void setDf(Double df){
+        this.df = df;
     }
 
     public Long getCnpj() {
@@ -53,14 +50,6 @@ public class Cliente {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getObs() {
-        return obs;
-    }
-
-    public void setObs(String obs) {
-        this.obs = obs;
     }
 
     public String getCep() {
@@ -87,28 +76,28 @@ public class Cliente {
         this.municipio = municipio;
     }
 
+    public String getObs() {
+        return obs;
+    }
+
+    public void setObs(String obs) {
+        this.obs = obs;
+    }
+
+    public List<Pedido> getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(List<Pedido> pedido) {
+        this.pedido = pedido;
+    }
+
     public String getUf() {
         return uf;
     }
 
     public void setUf(String uf) {
         this.uf = uf;
-    }
-
-    public double getDf() {
-        return df;
-    }
-
-    public void setDf(double df) {
-        this.df = df;
-    }
-
-    public boolean isICMS() {
-        return isICMS;
-    }
-
-    public void setICMS(boolean ICMS) {
-        isICMS = ICMS;
     }
 }
 

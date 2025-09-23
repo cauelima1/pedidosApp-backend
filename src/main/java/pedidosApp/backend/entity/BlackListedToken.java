@@ -10,9 +10,7 @@ public class BlackListedToken {
 
     @Id
     private String token;
-
     private long expirationMillis;
-
     private LocalDateTime blacklistedAt;
 
     public String getToken() {
