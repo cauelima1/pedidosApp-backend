@@ -1,4 +1,5 @@
 package pedidosApp.backend.entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
@@ -9,6 +10,7 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="pedido_id")
     private Pedido pedido;
@@ -19,27 +21,12 @@ public class Item {
     private int quantidade;
     private BigDecimal precoLiqTotalComICMS;
     private BigDecimal precoUniComICMS;
-    private BigDecimal IPI;
-    private BigDecimal ST;
     private BigDecimal custoTotal;
     private BigDecimal custoUnitario;
-    private BigDecimal mc;
-    private BigDecimal mc1;
-    private BigDecimal frete;
-    private BigDecimal vdot;
-    private BigDecimal stvd;
     private BigDecimal precoFinal;
     private BigDecimal valorTotalFinal;
 
     public Item (){}
-
-    public BigDecimal getVdot() {
-        return vdot;
-    }
-
-    public void setVdot(BigDecimal vdot) {
-        this.vdot = vdot;
-    }
 
     public Long getId() {
         return id;
@@ -113,21 +100,6 @@ public class Item {
         this.precoUniComICMS = precoUniComICMS;
     }
 
-    public BigDecimal getIPI() {
-        return IPI;
-    }
-
-    public void setIPI(BigDecimal IPI) {
-        this.IPI = IPI;
-    }
-
-    public BigDecimal getST() {
-        return ST;
-    }
-
-    public void setST(BigDecimal ST) {
-        this.ST = ST;
-    }
 
     public BigDecimal getCustoTotal() {
         return custoTotal;
@@ -145,37 +117,6 @@ public class Item {
         this.custoUnitario = custoUnitario;
     }
 
-    public BigDecimal getMc() {
-        return mc;
-    }
-
-    public void setMc(BigDecimal mc) {
-        this.mc = mc;
-    }
-
-    public BigDecimal getMc1() {
-        return mc1;
-    }
-
-    public void setMc1(BigDecimal mc1) {
-        this.mc1 = mc1;
-    }
-
-    public BigDecimal getFrete() {
-        return frete;
-    }
-
-    public void setFrete(BigDecimal frete) {
-        this.frete = frete;
-    }
-
-    public BigDecimal getStvd() {
-        return stvd;
-    }
-
-    public void setStvd(BigDecimal stvd) {
-        this.stvd = stvd;
-    }
 
     public BigDecimal getPrecoFinal() {
         return precoFinal;

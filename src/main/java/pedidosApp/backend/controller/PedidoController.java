@@ -21,13 +21,13 @@ public class PedidoController {
     private ItemService itemService;
 
     @PostMapping
-    public ResponseEntity<Pedido> criarPedido (@RequestBody PedidoDtoRequest pedidoDTO){
-        Pedido novoPedido = pedidoService.novoPedido(pedidoDTO);
-        return ResponseEntity.ok(novoPedido);
+    public ResponseEntity<?> criarPedido (@RequestBody PedidoDtoRequest pedidoDTO){
+         pedidoService.salvarPedido(pedidoDTO);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Pedido> alterarPedido (@PathVariable Long id, @RequestBody PedidoDtoRequest pedidoDTO){
+    public ResponseEntity<?> alterarPedido (@PathVariable Long id, @RequestBody PedidoDtoRequest pedidoDTO){
         Pedido novoPedido = pedidoService.alterar(id, pedidoDTO);
         return ResponseEntity.ok(novoPedido);
     }

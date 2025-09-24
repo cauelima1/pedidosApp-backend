@@ -1,6 +1,7 @@
 package pedidosApp.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pedidosApp.backend.entity.Cliente;
@@ -18,7 +19,7 @@ public class ClienteController {
     private ClientService clientService;
 
     @PostMapping
-    public ResponseEntity<?> salvarCliente(@RequestBody ClienteDtoRequest clienteDto){
+    public ResponseEntity<HttpStatus> salvarCliente(@RequestBody ClienteDtoRequest clienteDto){
         clientService.salvarCliente(clienteDto);
         return ResponseEntity.ok().build();
     }

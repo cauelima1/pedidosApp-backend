@@ -1,8 +1,9 @@
 package pedidosApp.backend.entity.DTO;
 
-import java.math.BigDecimal;
 
-public record PedidoDtoRequest(Long cnpj, String ICMS, String DIFAL,
-                               String IPI, String COFINS, String validade,
-                               String condicoesFrete, String observacoes) {
+public record PedidoDtoRequest(Long idCliente,String condicaoFrete,
+                               String observacoes, String statusPedido,
+                               String ipi, String st, String mc,
+                               String mc1, String frete, String vdot,
+                               String stvd ) {
 }

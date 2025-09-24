@@ -1,6 +1,8 @@
 package pedidosApp.backend.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Data;
 import pedidosApp.backend.entity.enums.StatusPedido;
 
 import java.math.BigDecimal;
@@ -15,51 +17,97 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
-    private String nomeCliente;
+
+    @JsonManagedReference
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<Item> items;
     private BigDecimal valorTotal;
-    private BigDecimal ICMS;
-    private BigDecimal DIFAL;
-    private BigDecimal IPI;
-    private BigDecimal PIS;
-    private BigDecimal COFINS;
-    private String validade;
     private String condicaoFrete;
     private String observacoes;
     private StatusPedido statusPedido;
-    private String data;
+    private Date data;
+
+   //impostos e comissões
+    private BigDecimal IPI;
+    private BigDecimal ST;
+    private BigDecimal mc;
+    private BigDecimal mc1;
+    private BigDecimal frete;
+    private BigDecimal vdot;
+    private BigDecimal stvd;
 
 
     public Pedido(){}
 
-
-    public String getNomeCliente() {
-        return nomeCliente;
+    public void setData(Date data) {
+        this.data = data;
     }
 
-    public void setNomeCliente(String nomeCliente) {
-        this.nomeCliente = nomeCliente;
+    public BigDecimal getIPI() {
+        return IPI;
     }
 
+    public void setIPI(BigDecimal IPI) {
+        this.IPI = IPI;
+    }
 
+    public BigDecimal getST() {
+        return ST;
+    }
 
-    public String getData() {
+    public void setST(BigDecimal ST) {
+        this.ST = ST;
+    }
+
+    public BigDecimal getMc() {
+        return mc;
+    }
+
+    public void setMc(BigDecimal mc) {
+        this.mc = mc;
+    }
+
+    public BigDecimal getMc1() {
+        return mc1;
+    }
+
+    public void setMc1(BigDecimal mc1) {
+        this.mc1 = mc1;
+    }
+
+    public BigDecimal getFrete() {
+        return frete;
+    }
+
+    public void setFrete(BigDecimal frete) {
+        this.frete = frete;
+    }
+
+    public BigDecimal getVdot() {
+        return vdot;
+    }
+
+    public void setVdot(BigDecimal vdot) {
+        this.vdot = vdot;
+    }
+
+    public BigDecimal getStvd() {
+        return stvd;
+    }
+
+    public void setStvd(BigDecimal stvd) {
+        this.stvd = stvd;
+    }
+
+    public Date getData() {
         return data;
     }
 
-    public void setData(String data) {
-        this.data = data;
-    }
-    public void setData(Date data) {
-        Date date = new Date();
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        this.data = formato.format(date);
-    }
 
     public Long getId() {
         return id;
@@ -93,53 +141,6 @@ public class Pedido {
         this.valorTotal = valorTotal;
     }
 
-    public BigDecimal getICMS() {
-        return ICMS;
-    }
-
-    public void setICMS(BigDecimal ICMS) {
-        this.ICMS = ICMS;
-    }
-
-    public BigDecimal getDIFAL() {
-        return DIFAL;
-    }
-
-    public void setDIFAL(BigDecimal DIFAL) {
-        this.DIFAL = DIFAL;
-    }
-
-    public BigDecimal getIPI() {
-        return IPI;
-    }
-
-    public void setIPI(BigDecimal IPI) {
-        this.IPI = IPI;
-    }
-
-    public BigDecimal getPIS() {
-        return PIS;
-    }
-
-    public void setPIS(BigDecimal PIS) {
-        this.PIS = PIS;
-    }
-
-    public BigDecimal getCOFINS() {
-        return COFINS;
-    }
-
-    public void setCOFINS(BigDecimal COFINS) {
-        this.COFINS = COFINS;
-    }
-
-    public String getValidade() {
-        return validade;
-    }
-
-    public void setValidade(String validade) {
-        this.validade = validade;
-    }
 
     public String getCondicaoFrete() {
         return condicaoFrete;
