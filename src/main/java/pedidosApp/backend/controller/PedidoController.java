@@ -1,8 +1,10 @@
 package pedidosApp.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pedidosApp.backend.entity.DTO.ItemDtoRequest;
 import pedidosApp.backend.entity.DTO.PedidoDtoRequest;
 import pedidosApp.backend.entity.Pedido;
 import pedidosApp.backend.service.ItemService;
@@ -17,14 +19,16 @@ public class PedidoController {
     @Autowired
     private PedidoService pedidoService;
 
-    @Autowired
-    private ItemService itemService;
+
 
     @PostMapping
-    public ResponseEntity<?> criarPedido (@RequestBody PedidoDtoRequest pedidoDTO){
-         pedidoService.salvarPedido(pedidoDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Long> criarPedido (@RequestBody PedidoDtoRequest pedidoDTO){
+          Pedido pedido = pedidoService.salvarPedido(pedidoDTO);
+          Long n = pedido.getId();
+        return ResponseEntity.status(HttpStatus.CREATED).body(n);
     }
+
+
 
     @PutMapping("/{id}")
     public ResponseEntity<?> alterarPedido (@PathVariable Long id, @RequestBody PedidoDtoRequest pedidoDTO){

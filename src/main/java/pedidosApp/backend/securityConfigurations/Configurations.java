@@ -43,7 +43,7 @@ public class Configurations {
                         .requestMatchers(HttpMethod.GET, "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/clientes").authenticated()
                         .requestMatchers(HttpMethod.GET, "/clientes").authenticated()
-                        .requestMatchers(HttpMethod.DELETE, "/clientes/**", "/pedidos/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/clientes/**", "/pedidos/**", "/pedidos/item/**").authenticated()
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

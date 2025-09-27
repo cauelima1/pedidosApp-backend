@@ -2,11 +2,9 @@ package pedidosApp.backend.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Data;
 import pedidosApp.backend.entity.enums.StatusPedido;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -33,35 +31,43 @@ public class Pedido {
     private Date data;
 
    //impostos e comissões
-    private BigDecimal IPI;
-    private BigDecimal ST;
+    private BigDecimal icms;
+    private BigDecimal ipi;
+    private BigDecimal st;
     private BigDecimal mc;
     private BigDecimal mc1;
     private BigDecimal frete;
-    private BigDecimal vdot;
     private BigDecimal stvd;
 
 
     public Pedido(){}
 
+    public BigDecimal getIcms() {
+        return icms;
+    }
+
+    public void setIcms(BigDecimal icms) {
+        this.icms = icms;
+    }
+
     public void setData(Date data) {
         this.data = data;
     }
 
-    public BigDecimal getIPI() {
-        return IPI;
+    public BigDecimal getIpi() {
+        return ipi;
     }
 
-    public void setIPI(BigDecimal IPI) {
-        this.IPI = IPI;
+    public void setIpi(BigDecimal ipi) {
+        this.ipi = ipi;
     }
 
-    public BigDecimal getST() {
-        return ST;
+    public BigDecimal getSt() {
+        return st;
     }
 
-    public void setST(BigDecimal ST) {
-        this.ST = ST;
+    public void setSt(BigDecimal st) {
+        this.st = st;
     }
 
     public BigDecimal getMc() {
@@ -88,13 +94,6 @@ public class Pedido {
         this.frete = frete;
     }
 
-    public BigDecimal getVdot() {
-        return vdot;
-    }
-
-    public void setVdot(BigDecimal vdot) {
-        this.vdot = vdot;
-    }
 
     public BigDecimal getStvd() {
         return stvd;
