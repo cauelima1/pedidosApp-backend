@@ -7,13 +7,16 @@ import java.math.BigDecimal;
 @Entity
 public class Item {
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private Long id;
 
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
     private String fabricante;
-    @Id
+
     private String nome;
     private String tipo;
     private String obs;
@@ -38,6 +41,14 @@ public class Item {
 
     public void setVtotf(BigDecimal vtotf) {
         this.vtotf = vtotf;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 

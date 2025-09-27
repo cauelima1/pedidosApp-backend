@@ -31,4 +31,10 @@ public class ItemController {
         return ResponseEntity.ok().body(itemsLista);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarItem(@PathVariable Long id){
+        itemService.deletarItem(id);
+        return ResponseEntity.ok().build();
+    }
+
 }

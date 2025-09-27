@@ -41,6 +41,12 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoService.getPedidos());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<List<Pedido>> getPedidosCliente (@PathVariable Long id) {
+        List<Pedido> list = pedidoService.getPedidosCliente(id);
+        return ResponseEntity.ok().body(list);
+    }
+
     @DeleteMapping("/{id}")
     public void deletarPedido(@PathVariable Long id){
         pedidoService.deletar(id);

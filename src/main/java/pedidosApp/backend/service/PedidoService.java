@@ -27,25 +27,31 @@ public class PedidoService {
     private ItemRepository itemRepository;
 
     public Pedido salvarPedido(PedidoDtoRequest pedidoDtoRequest){
-        Pedido novoPedido = new Pedido();
+            Pedido novoPedido = new Pedido();
+            Cliente cliente = clienteRepository.findByCnpj(pedidoDtoRequest.idCliente());
+        if (cliente != null) {
         novoPedido.setCliente(clienteRepository.findByCnpj(pedidoDtoRequest.idCliente()));
 
-        novoPedido.setCondicaoFrete(pedidoDtoRequest.condicaoFrete());
-        novoPedido.setData(Date.from(Instant.now()));
-        novoPedido.setObservacoes(pedidoDtoRequest.observacoes());
-        novoPedido.setCondicaoFrete(pedidoDtoRequest.condicaoFrete());
-        novoPedido.setIpi(conversorDeValores(pedidoDtoRequest.ipi()));
-        novoPedido.setSt(conversorDeValores(pedidoDtoRequest.st()));
-        novoPedido.setMc(conversorDeValores(pedidoDtoRequest.mc()));
-        novoPedido.setMc1(conversorDeValores(pedidoDtoRequest.mc1()));
-        novoPedido.setFrete(conversorDeValores(pedidoDtoRequest.frete()));
-        novoPedido.setStvd(conversorDeValores(pedidoDtoRequest.stvd()));
-        novoPedido.setIcms(conversorDeValores(pedidoDtoRequest.icms()));
-        novoPedido.setStatusPedido(StatusPedido.ABERTO);
+            novoPedido.setCondicaoFrete(pedidoDtoRequest.condicaoFrete());
+            novoPedido.setData(Date.from(Instant.now()));
+            novoPedido.setObservacoes(pedidoDtoRequest.observacoes());
+            novoPedido.setCondicaoFrete(pedidoDtoRequest.condicaoFrete());
+            novoPedido.setIpi(conversorDeValores(pedidoDtoRequest.ipi()));
+            novoPedido.setSt(conversorDeValores(pedidoDtoRequest.st()));
+            novoPedido.setMc(conversorDeValores(pedidoDtoRequest.mc()));
+            novoPedido.setMc1(conversorDeValores(pedidoDtoRequest.mc1()));
+            novoPedido.setFrete(conversorDeValores(pedidoDtoRequest.frete()));
+            novoPedido.setStvd(conversorDeValores(pedidoDtoRequest.stvd()));
+            novoPedido.setIcms(conversorDeValores(pedidoDtoRequest.icms()));
+            novoPedido.setStatusPedido(StatusPedido.ABERTO);
 
-        Pedido pedidoSalvo = pedidoRepository.save(novoPedido);
-        pedidoRepository.save(pedidoSalvo);
-    return novoPedido;
+            Pedido pedidoSalvo = pedidoRepository.save(novoPedido);
+            pedidoRepository.save(pedidoSalvo);
+            return novoPedido;
+        } else {
+            throw new RuntimeException("Erro ao cadastrar pedido;");
+        }
+
     }
 
     public Pedido alterar(Long id, PedidoDtoRequest pedidoDtoRequest){
@@ -62,6 +68,12 @@ return null;
 
     public List<Pedido> getPedidos () {
         return pedidoRepository.findAll();
+    }
+
+    public List<Pedido> getPedidosCliente (Long cnpj){
+       return pedidoRepository.findAll().stream()
+                .filter(p -> p.getCliente() != null && p.getCliente().getCnpj().equals(cnpj))
+                .toList();
     }
 
     private Cliente buscarCliente (Long cnpj){
