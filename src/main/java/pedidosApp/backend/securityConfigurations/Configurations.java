@@ -41,7 +41,7 @@ public class Configurations {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/clientes").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/clientes", "/pedidos/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/clientes").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/clientes/**", "/pedidos/**", "/pedidos/item/**").authenticated()
                         .anyRequest().authenticated())

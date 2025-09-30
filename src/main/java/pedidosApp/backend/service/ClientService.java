@@ -56,4 +56,10 @@ public class ClientService {
     public List<Cliente> listarClientes (){
         return clienteRepository.findAll();
     }
+
+    public Cliente carregarCliente (Long cnpj) {
+        if(clienteRepository.existsById(cnpj))
+            return clienteRepository.findByCnpj(cnpj);
+        else return  null;
+    }
 }

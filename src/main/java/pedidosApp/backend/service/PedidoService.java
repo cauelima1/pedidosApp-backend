@@ -1,8 +1,10 @@
 package pedidosApp.backend.service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import pedidosApp.backend.entity.Cliente;
 import pedidosApp.backend.entity.DTO.PedidoDtoRequest;
+import pedidosApp.backend.entity.Item;
 import pedidosApp.backend.entity.Pedido;
 import pedidosApp.backend.entity.enums.StatusPedido;
 import pedidosApp.backend.repository.ClienteRepository;
@@ -13,9 +15,14 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PedidoService {
+
+    @Lazy
+    @Autowired
+    private ItemService itemService;
 
     @Autowired
     private PedidoRepository pedidoRepository;
@@ -51,11 +58,41 @@ public class PedidoService {
         } else {
             throw new RuntimeException("Erro ao cadastrar pedido;");
         }
+    }
 
+    public Pedido finalizar(Long id){
+        if(pedidoRepository.existsById(id)){
+            return calcularTotalPedido(id);
+        }
+        throw new RuntimeException("Id não do pedido não existe");
+    }
+
+    private Pedido calcularTotalPedido(Long id){
+        Pedido pedidoParaFinalizar = pedidoRepository.findById(id).get();
+        pedidoParaFinalizar.setValorTotal(pedidoParaFinalizar.getItems().stream()
+                .map(Item::getVtotf)
+                .reduce(BigDecimal.ZERO, BigDecimal::add));
+        return pedidoRepository.save(pedidoParaFinalizar);
     }
 
     public Pedido alterar(Long id, PedidoDtoRequest pedidoDtoRequest){
-return null;
+        if (pedidoRepository.existsById(id)){
+            Pedido pedido = pedidoRepository.findById(id).get();
+            pedido.setCondicaoFrete(pedidoDtoRequest.condicaoFrete());
+            pedido.setObservacoes(pedidoDtoRequest.observacoes());
+            pedido.setIpi(conversorDeValores(pedidoDtoRequest.ipi()));
+            pedido.setSt(conversorDeValores(pedidoDtoRequest.st()));
+            pedido.setMc(conversorDeValores(pedidoDtoRequest.mc()));
+            pedido.setMc1(conversorDeValores(pedidoDtoRequest.mc1()));
+            pedido.setFrete(conversorDeValores(pedidoDtoRequest.frete()));
+            pedido.setStvd(conversorDeValores(pedidoDtoRequest.stvd()));
+            pedido.setIcms(conversorDeValores(pedidoDtoRequest.icms()));
+            List<Item> items = pedido.getItems();
+            items.forEach(i -> itemService.calculoItem(i));
+            return calcularTotalPedido(pedido.getId());
+        } else {
+            throw new RuntimeException("Pedido não existe!");
+        }
     }
 
     public void deletar(Long id) {
@@ -76,11 +113,9 @@ return null;
                 .toList();
     }
 
-    private Cliente buscarCliente (Long cnpj){
-        return clienteRepository.findByCnpj(cnpj);
-    }
 
-    public BigDecimal conversorDeValores (String valorString){
+
+     public BigDecimal conversorDeValores (String valorString){
 
         if(valorString!= null){
             valorString = valorString.replace(",", ".");

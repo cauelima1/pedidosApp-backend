@@ -28,7 +28,11 @@ public class PedidoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(n);
     }
 
-
+    @PostMapping("/{id}")
+    public ResponseEntity<Pedido> finalizarPedido (@PathVariable Long id){
+        Pedido pedido = pedidoService.finalizar(id);
+        return ResponseEntity.ok().body(pedido);
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> alterarPedido (@PathVariable Long id, @RequestBody PedidoDtoRequest pedidoDTO){
@@ -46,6 +50,7 @@ public class PedidoController {
         List<Pedido> list = pedidoService.getPedidosCliente(id);
         return ResponseEntity.ok().body(list);
     }
+
 
     @DeleteMapping("/{id}")
     public void deletarPedido(@PathVariable Long id){

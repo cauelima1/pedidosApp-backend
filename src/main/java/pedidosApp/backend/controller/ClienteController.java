@@ -30,6 +30,12 @@ public class ClienteController {
         return ResponseEntity.ok().body(clientes);
     }
 
+    @GetMapping("/{cnpj}")
+    public ResponseEntity<Cliente> carregarCliente(@PathVariable Long cnpj){
+        Cliente clienteSelecionado = clientService.carregarCliente(cnpj);
+        return ResponseEntity.ok().body(clienteSelecionado);
+    }
+
     @PutMapping
     public ResponseEntity<?> alterarCliente (@RequestBody ClienteDtoRequest clienteDtoRequest){
         clientService.alterarCliente(clienteDtoRequest);
