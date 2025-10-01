@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import pedidosApp.backend.entity.Cliente;
 import pedidosApp.backend.entity.DTO.PedidoDtoRequest;
+import pedidosApp.backend.entity.DTO.StatusEnumDTO;
 import pedidosApp.backend.entity.Item;
 import pedidosApp.backend.entity.Pedido;
 import pedidosApp.backend.entity.enums.StatusPedido;
@@ -15,7 +16,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class PedidoService {
@@ -123,5 +124,17 @@ public class PedidoService {
             valorString = "0.0";
         }
         return new BigDecimal(valorString);
+    }
+
+    public Pedido atualizarStatus(Long id, StatusEnumDTO status){
+        if(pedidoRepository.existsById(id)){
+            Pedido pedido = pedidoRepository.findById(id).get();
+            StatusPedido status1 = StatusPedido.valueOf(status.status());
+
+            pedido.setStatusPedido(status1);
+            return pedidoRepository.save(pedido);
+        } else{
+            throw new RuntimeException("Erro ao atualizar Status do pedido");
+        }
     }
 }
