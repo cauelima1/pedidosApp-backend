@@ -126,9 +126,10 @@ public class PedidoService {
         return new BigDecimal(valorString);
     }
 
-    public Pedido atualizarStatus(Long id, StatusEnumDTO status){
-        if(pedidoRepository.existsById(id)){
-            Pedido pedido = pedidoRepository.findById(id).get();
+    public Pedido atualizarStatus(StatusEnumDTO status){
+        if(pedidoRepository.existsById(status.id())){
+            Pedido pedido = pedidoRepository.findById(status.id()).get();
+            System.out.println(pedido.getStatusPedido());
             StatusPedido status1 = StatusPedido.valueOf(status.status());
 
             pedido.setStatusPedido(status1);

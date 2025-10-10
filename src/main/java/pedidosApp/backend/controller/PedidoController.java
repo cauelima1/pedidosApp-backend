@@ -4,11 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pedidosApp.backend.entity.DTO.ItemDtoRequest;
 import pedidosApp.backend.entity.DTO.PedidoDtoRequest;
 import pedidosApp.backend.entity.DTO.StatusEnumDTO;
 import pedidosApp.backend.entity.Pedido;
-import pedidosApp.backend.service.ItemService;
 import pedidosApp.backend.service.PedidoService;
 
 import java.util.List;
@@ -52,9 +50,9 @@ public class PedidoController {
         return ResponseEntity.ok().body(list);
     }
 
-    @PostMapping("/editar/{id}")
-    public ResponseEntity<Pedido> atualizarStatusPedido(@PathVariable Long id, @RequestBody StatusEnumDTO status){
-        Pedido pedido = pedidoService.atualizarStatus(id, status);
+    @PostMapping("/editar")
+    public ResponseEntity<Pedido> atualizarStatusPedido(@RequestBody StatusEnumDTO status){
+        Pedido pedido = pedidoService.atualizarStatus(status);
         return ResponseEntity.ok().body(pedido);
     }
 

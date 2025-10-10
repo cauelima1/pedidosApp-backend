@@ -1,4 +1,4 @@
 package pedidosApp.backend.entity.DTO;
 
-public record StatusEnumDTO(String status) {
+public record StatusEnumDTO(Long id, String status) {
 }
