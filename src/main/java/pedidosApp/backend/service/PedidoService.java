@@ -51,6 +51,8 @@ public class PedidoService {
             novoPedido.setFrete(conversorDeValores(pedidoDtoRequest.frete()));
             novoPedido.setStvd(conversorDeValores(pedidoDtoRequest.stvd()));
             novoPedido.setIcms(conversorDeValores(pedidoDtoRequest.icms()));
+            novoPedido.setPis(conversorDeValores(pedidoDtoRequest.pis()));
+            novoPedido.setCofins(conversorDeValores(pedidoDtoRequest.cofins()));
             novoPedido.setStatusPedido(StatusPedido.ABERTO);
 
             Pedido pedidoSalvo = pedidoRepository.save(novoPedido);
@@ -88,6 +90,8 @@ public class PedidoService {
             pedido.setFrete(conversorDeValores(pedidoDtoRequest.frete()));
             pedido.setStvd(conversorDeValores(pedidoDtoRequest.stvd()));
             pedido.setIcms(conversorDeValores(pedidoDtoRequest.icms()));
+            pedido.setPis(conversorDeValores(pedidoDtoRequest.pis()));
+            pedido.setCofins(conversorDeValores(pedidoDtoRequest.cofins()));
             List<Item> items = pedido.getItems();
             items.forEach(i -> itemService.calculoItem(i));
             return calcularTotalPedido(pedido.getId());

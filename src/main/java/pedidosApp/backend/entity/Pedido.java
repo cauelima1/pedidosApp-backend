@@ -38,7 +38,24 @@ public class Pedido {
     private BigDecimal mc1;
     private BigDecimal frete;
     private BigDecimal stvd;
+    private BigDecimal pis;
+    private BigDecimal cofins;
 
+    public BigDecimal getPis() {
+        return pis;
+    }
+
+    public void setPis(BigDecimal pis) {
+        this.pis = pis;
+    }
+
+    public BigDecimal getCofins() {
+        return cofins;
+    }
+
+    public void setCofins(BigDecimal cofins) {
+        this.cofins = cofins;
+    }
 
     public Pedido(){}
 

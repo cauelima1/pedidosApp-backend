@@ -3,6 +3,7 @@ package pedidosApp.backend.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.web.bind.annotation.*;
 import pedidosApp.backend.entity.DTO.PedidoDtoRequest;
 import pedidosApp.backend.entity.DTO.StatusEnumDTO;
@@ -17,8 +18,6 @@ public class PedidoController {
 
     @Autowired
     private PedidoService pedidoService;
-
-
 
     @PostMapping
     public ResponseEntity<Long> criarPedido (@RequestBody PedidoDtoRequest pedidoDTO){
