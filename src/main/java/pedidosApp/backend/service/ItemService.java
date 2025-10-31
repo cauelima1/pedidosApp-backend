@@ -48,7 +48,8 @@ public class ItemService {
             itemAlterado.setQuantidade(pedidoService.conversorDeValores(itemDtoRequest.quantidade()));
             itemAlterado.setCusto(pedidoService.conversorDeValores(itemDtoRequest.custo()));
             itemAlterado.setTipo(itemDtoRequest.tipo());
-            return itemRepository.save(itemAlterado);
+            calculoItem(itemAlterado);
+            return itemAlterado;
         } else {
             throw new RuntimeException("Erro ao alterar Item.");
         }
