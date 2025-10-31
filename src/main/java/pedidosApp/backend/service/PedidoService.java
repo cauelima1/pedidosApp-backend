@@ -138,6 +138,7 @@ public class PedidoService {
 
             pedido.setStatusPedido(status1);
             return pedidoRepository.save(pedido);
+
         } else{
             throw new RuntimeException("Erro ao atualizar Status do pedido");
         }

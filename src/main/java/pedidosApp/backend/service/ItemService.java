@@ -39,6 +39,21 @@ public class ItemService {
     }
     }
 
+    public Item alterarItem(ItemDtoRequest itemDtoRequest, Long id){
+        if(itemRepository.existsById(id)){
+            Item itemAlterado = itemRepository.findById(id).get();
+            itemAlterado.setNome(itemDtoRequest.nome());
+            itemAlterado.setObs(itemDtoRequest.obs());
+            itemAlterado.setFabricante(itemDtoRequest.fabricante());
+            itemAlterado.setQuantidade(pedidoService.conversorDeValores(itemDtoRequest.quantidade()));
+            itemAlterado.setCusto(pedidoService.conversorDeValores(itemDtoRequest.custo()));
+            itemAlterado.setTipo(itemDtoRequest.tipo());
+            return itemRepository.save(itemAlterado);
+        } else {
+            throw new RuntimeException("Erro ao alterar Item.");
+        }
+    }
+
     public void calculoItem (Item item) {
         BigDecimal ipi = (item.getPedido().getIpi()).divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
         BigDecimal st = (item.getPedido().getSt()).divide(BigDecimal.valueOf(100),2, RoundingMode.HALF_UP);

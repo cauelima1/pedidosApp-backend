@@ -25,6 +25,12 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.CREATED).body(item);
     }
 
+    @PutMapping("/{itemId}")
+    public ResponseEntity<Item> alterarItem(@RequestBody ItemDtoRequest itemDtoRequest, @PathVariable Long itemId){
+        Item item = itemService.alterarItem(itemDtoRequest, itemId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(item);
+    }
+
     @GetMapping("/{pedidoId}")
     public ResponseEntity<List<Item>> listaItemsPedido (@PathVariable Long pedidoId){
         List<Item> itemsLista = itemService.listarItemsPedido(pedidoId);
