@@ -23,7 +23,7 @@ public class Cliente {
     private Double df;
 
     @JsonManagedReference
-    @OneToMany( mappedBy = "cliente")
+    @OneToMany( mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Pedido> pedido = new ArrayList<>();
 
     public Cliente (){}
